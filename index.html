@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matriz Estratégica de Oportunidades - Consultora IT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body { background-color: #0b0f19; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+    .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-2px); transition: all 0.2s ease; }
+    .badge-high { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-mid { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-low { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .bar-high { width: 90%; background: #10b981; }
+    .bar-mid { width: 60%; background: #f59e0b; }
+    .bar-low { width: 25%; background: #ef4444; }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- HEADER -->
+    <header class="mb-8 pb-6 border-b border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 bg-indigo-600/20 text-indigo-400 rounded-xl border border-indigo-500/30">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-white">Ecosistema & Matriz de Rentabilidad</h1>
+            <p class="text-xs text-slate-400">Evaluación de oportunidades basada en la sinergia del equipo de consultoría IT</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro Rápido -->
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button onclick="filterCards('all')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 font-medium">Todos</button>
+        <button onclick="filterCards('high')" class="px-3 py-1.5 rounded-lg bg-emerald-950/40 text-emerald-400 border border-emerald-800/50 hover:bg-emerald-900/50 font-medium">🟢 Alta (B2B / High-Ticket)</button>
+        <button onclick="filterCards('mid')" class="px-3 py-1.5 rounded-lg bg-amber-950/40 text-amber-400 border border-amber-800/50 hover:bg-amber-900/50 font-medium">🟡 Media (Programas / Mentores)</button>
+        <button onclick="filterCards('low')" class="px-3 py-1.5 rounded-lg bg-red-950/40 text-red-400 border border-red-800/50 hover:bg-red-900/50 font-medium">🔴 Marca (Inbound / B2C)</button>
+      </div>
+    </header>
+
+    <!-- CORE DE SKILLS DEL EQUIPO -->
+    <section class="mb-8">
+      <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i> Integrantes & Habilidades Core
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        
+        <div class="glass-card p-4 rounded-xl flex items-start gap-3">
+          <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg border border-emerald-500/20"><i data-lucide="bot" class="w-5 h-5"></i></div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Perfil 1</span>
+            <h3 class="font-bold text-sm text-slate-100">Experto en IA & Procesos</h3>
+            <p class="text-xs text-slate-400 mt-1">Automatizaciones (Make, n8n, Python), optimización de flujos y arquitectura de datos.</p>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl flex items-start gap-3">
+          <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg border border-blue-500/20"><i data-lucide="user-check" class="w-5 h-5"></i></div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400">Perfil 2</span>
+            <h3 class="font-bold text-sm text-slate-100">Servicio & Liderazgo</h3>
+            <p class="text-xs text-slate-400 mt-1">Gestión de equipos, adopción cultural del cambio, comunicación y atención al cliente.</p>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl flex items-start gap-3">
+          <div class="p-3 bg-purple-500/10 text-purple-400 rounded-lg border border-purple-500/20"><i data-lucide="video" class="w-5 h-5"></i></div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400">Perfil 3</span>
+            <h3 class="font-bold text-sm text-slate-100">Streaming & Edición</h3>
+            <p class="text-xs text-slate-400 mt-1">Producción de video en vivo, edición profesional, diseño instruccional y setup técnico.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- GRID DE IDEAS Y OPORTUNIDADES -->
+    <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="cards-container">
+
+      <!-- Idea 1 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="high">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-high text-xs px-2.5 py-1 rounded-full font-semibold">🟢 Alta Rentabilidad</span>
+            <span class="text-[11px] text-slate-400 font-medium">B2B Corporate</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Auditoría y Planificación para PyMEs</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Relevamiento de procesos en PyMEs, detección de cuellos de botella y entrega del roadmap exacto de implementación de IA.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-emerald-400 font-bold">Muy Alto (High-Ticket)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-high h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Sinergia:</strong> IA (Auditoría) + Liderazgo (Entrevistas) + Video (Resumen Ejecutivo).
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 2 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="high">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-high text-xs px-2.5 py-1 rounded-full font-semibold">🟢 Alta Rentabilidad</span>
+            <span class="text-[11px] text-slate-400 font-medium">B2B Sectorial</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Capacitaciones de IA para Sectores (Ej. Salud)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Programas cerrados in-company para clínicas y centros médicos: automatización de historias clínicas, gestión de turnos y flujos con IA.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-emerald-400 font-bold">Alto</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-high h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Sinergia:</strong> IA (Caso de uso) + Liderazgo (Facilitación) + Streaming (Grabaciones).
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 3 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="high">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-high text-xs px-2.5 py-1 rounded-full font-semibold">🟢 Alta Rentabilidad</span>
+            <span class="text-[11px] text-slate-400 font-medium">Servicios / Setup</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Setup de Transmisiones Corporativas Híbridas</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Diseño e implementación de infraestructura para eventos en vivo, comunicados de directorio y salas híbridas de alta calidad.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-emerald-400 font-bold">Alto</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-high h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Sinergia:</strong> Video/Live (Core) + IA (Flujos) + Liderazgo (Capacitación al staff).
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 4 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="mid">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-mid text-xs px-2.5 py-1 rounded-full font-semibold">🟡 Media Rentabilidad</span>
+            <span class="text-[11px] text-slate-400 font-medium">Bootcamp B2C</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Pack de Clases para Devs en Automatización</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Bootcamp intensivo para desarrolladores sobre creación de agentes de IA, Make, n8n y flujos enterprise en cohorts reducidos.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-amber-400 font-bold">Medio - Recurrente</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-mid h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Sinergia:</strong> IA (Temario) + Liderazgo (Mentoría) + Live/Video (Plataforma).
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 5 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="mid">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-mid text-xs px-2.5 py-1 rounded-full font-semibold">🟡 Media Rentabilidad</span>
+            <span class="text-[11px] text-slate-400 font-medium">Acompañamiento</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Formalización e Ideas para Emprendedores</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Mentoring para acelerar la estructuración de ideas de negocio, creación de procesos ágiles ystack tecnológico básico.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-amber-400 font-bold">Medio</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-mid h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Sinergia:</strong> Liderazgo (Guía) + IA/Procesos (Tech) + Video (Pitch).
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 6 -->
+      <div class="card-item glass-card rounded-2xl p-6 flex flex-col justify-between" data-category="low">
+        <div>
+          <div class="flex justify-between items-center mb-3">
+            <span class="badge-low text-xs px-2.5 py-1 rounded-full font-semibold">🔴 Rentabilidad Baja Directa</span>
+            <span class="text-[11px] text-slate-400 font-medium">Inbound Marketing</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Canal de YouTube / Contenido Divulgativo</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Creación de tutoriales sobre automatización, liderazgo y streaming. No como negocio principal sino como canal de atracción para captar PyMEs.
+          </p>
+        </div>
+
+        <div>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Margen / ROI estimado</span>
+              <span class="text-red-400 font-bold">Largo Plazo (Captación)</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="bar-low h-full"></div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400">
+            <strong class="text-slate-200">Rol:</strong> Embudo para atraer clientes hacia los servicios B2B High-Ticket.
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function filterCards(category) {
+      const cards = document.querySelectorAll('.card-item');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
